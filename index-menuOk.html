@@ -8,11 +8,13 @@
     <body>
 
     <header>
+      <h1></h1>
        <nav>
            <button class="menu-item" data-kategori="alle">Alle madvarer</button>
            <button class="menu-item" data-kategori="forretter">Forretter</button>
            <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
            <button class="menu-item" data-kategori="desserter">Dessert</button>
+           <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
 
        </nav>
 
@@ -44,7 +46,9 @@
         }
     </style>
 
+       <main class="container">
         <section class="data-container"></section>
+        </main>
 
         <template class="data-template">
         <article class="madvare">
@@ -62,9 +66,11 @@
         </template>
 
     <script>
-        document.addEventListener("DOMContentLoaded", hentJSON);
 
-        let madvarer;
+        let dest = document.querySelector(".data-container"), madvarer,
+           kategoriFilter="alle"; //** filter-variabel
+
+        document.addEventListener("DOMContentLoaded", hentJSON);
 
         async function hentJSON(){
             let myJson = await fetch("json/menu.json");
@@ -75,6 +81,17 @@
             visMadvarer();
         }
 
+        //** eventlisteners på alle knapper
+
+        document.querySelectorAll(".menu-item").forEach(knap =>{
+           knap.addEventListener("click", filtrering)
+       });
+       function filtrering(){
+           dest.textContent= "";
+           kategoriFilter=this.getAttribute("data-kategori");
+           visMadvarer();
+       }
+
         function visMadvarer(){
             let modtager = document.querySelector(".data-container");
             let temp = document.querySelector(".data-template");
@@ -82,6 +99,9 @@
              //Løb menulisten igennem og lav en klon
 
             madvarer.forEach(madvare => {
+
+                if (madvare.kategori==kategoriFilter || kategoriFilter=="alle"){
+
                 // Lav en klon af template
                 let klon = temp.cloneNode(true).content;
                 // Indsæt data i html
@@ -95,7 +115,9 @@
                 klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
                 // Placer klom i html
                 modtager.appendChild(klon);
-                })
+
+                }
+            })
             }
 
 

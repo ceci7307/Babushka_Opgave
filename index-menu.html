@@ -65,6 +65,7 @@
         document.addEventListener("DOMContentLoaded", hentJSON);
 
         let madvarer;
+        hovedretterFilter="hovedretter"; //** Filter-variabel
 
         async function hentJSON(){
             let myJson = await fetch("json/menu.json");
@@ -82,6 +83,9 @@
              //Løb menulisten igennem og lav en klon
 
             madvarer.forEach(madvare => {
+
+                if (madvare.kategori==hovedretterFilter){ //Tjek alle hovedretter
+
                 // Lav en klon af template
                 let klon = temp.cloneNode(true).content;
                 // Indsæt data i html
@@ -95,7 +99,9 @@
                 klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
                 // Placer klom i html
                 modtager.appendChild(klon);
-                })
+
+                }
+            })
             }
 
 
