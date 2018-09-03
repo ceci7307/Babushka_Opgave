@@ -1,13 +1,93 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Babushka</title>
+        <title>Restaurant Babushka</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+       <style>
+        body{
+            background-color:rgb(240,240,240);
+        }
+        article{
+            padding: 1em;
+            background-color:white;
+        }
+        .data-container article img{
+            width:100%;
+        }
+        .data-container{
+            margin: 0 auto;
+            display:grid;
+        }
+       @media screen and (min-width:580px){
+            .data-container{
+                padding-left:10%;
+                padding-right:10%;
+                grid-gap: 5px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+
+        <section class="data-container"></section>
+
+        <template class="data-template">
+        <article>
+            <h2></h2>
+            <p class="data-id"></p>
+            <p class="data-pris"></p>
+            <p class="data-kortbeskrivelse"></p>
+            <p class="data-langbeskrivelse"></p>
+            <p class="data-navn"></p>
+            <p class="data-kategori"></p>
+            <p class="data-oprindelsesregion"></p>
+            <p class="data-billede"></p>
+            <img src="" alt="">
+            </article>
+        </template>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", hentJSON);
+
+        let madvarer;
+
+        async function hentJSON(){
+            let myJson = await fetch("json/menu.json");
+            madvarer = await myJson.json();
+
+            console.log(madvarer);
+
+            visMadvarer();
+        }
+
+        function visMadvarer(){
+            let modtager = document.querySelector(".data-container");
+            let temp = document.querySelector(".data-template");
+
+             //Løb menulisten igennem og lav en klon
+
+            madvarer.forEach(madvare => {
+                // Lav en klon af template
+                let klon = temp.cloneNode(true).content;
+                // Indsæt data i html
+                klon.querySelector("h2").textContent = madvare.navn;
+                klon.querySelector(".data-id").textContent = madvare.id;
+                klon.querySelector(".data-pris").textContent = madvare.pris;
+                klon.querySelector(".data-kortbeskrivelse").textContent = madvare.kortbeskrivelse;
+                klon.querySelector(".data-langbeskrivelse").textContent = madvare.langbeskrivelse;
+                klon.querySelector(".data-kategori").textContent = madvare.kategori;
+                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
+                klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
+                // Placer klom i html
+                modtager.appendChild(klon);
+                })
+            }
 
 
+
+    </script>
 
     </body>
 </html>
