@@ -8,13 +8,11 @@
     <body>
 
     <header>
-      <h1></h1>
        <nav>
            <button class="menu-item" data-kategori="alle">Alle madvarer</button>
            <button class="menu-item" data-kategori="forretter">Forretter</button>
            <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
            <button class="menu-item" data-kategori="desserter">Dessert</button>
-           <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
 
        </nav>
 
@@ -22,14 +20,6 @@
 
 
        <style>
-           .data-kategori {
-               font-family: cursive;
-           }
-
-           h2{
-               color: black;
-           }
-
         body{
             background-color:rgb(240,240,240);
         }
@@ -54,32 +44,27 @@
         }
     </style>
 
-       <main class="container">
         <section class="data-container"></section>
-        </main>
 
         <template class="data-template">
         <article class="madvare">
             <h2></h2>
-            <img src="" alt=""><br>
-            <span class="data-id"></span><br>
-            <span class="data-kategori"></span><br>
-            <strong>Pris:</strong> <span class="data-pris"></span><br>
-            <strong>Kort beskrivelse:</strong> <span class="data-kortbeskrivelse"></span><br>
+            ID: <span class="data-id"></span><br>
+            Pris: <span class="data-pris"></span><br>
+            Kort beskrivelse: <span class="data-kortbeskrivelse"></span><br>
 <!--           <span class="data-navn"></span><br>-->
-            <span class="data-oprindelsesregion"></span><br>
+            Kategori: <span class="data-kategori"></span><br>
+            Oprindelsesregion: <span class="data-oprindelsesregion"></span><br>
 <!--            Status: <span class="data-billede"></span><br>-->
-            <span class="data-langbeskrivelse"></span><br>
-
+            Lang beskrivelse: <span class="data-langbeskrivelse"></span><br>
+            <img src="" alt=""><br>
             </article>
         </template>
 
     <script>
-
-        let dest = document.querySelector(".data-container"), madvarer,
-           kategoriFilter="alle"; //** filter-variabel
-
         document.addEventListener("DOMContentLoaded", hentJSON);
+
+        let madvarer;
 
         async function hentJSON(){
             let myJson = await fetch("json/menu.json");
@@ -90,48 +75,27 @@
             visMadvarer();
         }
 
-        //** eventlisteners på alle knapper
-
-        document.querySelectorAll(".menu-item").forEach(knap =>{
-           knap.addEventListener("click", filtrering)
-       });
-       function filtrering(){
-           dest.textContent= "";
-           kategoriFilter=this.getAttribute("data-kategori");
-           visMadvarer();
-       }
-
         function visMadvarer(){
-             let modtager = document.querySelector(".data-container");
+            let modtager = document.querySelector(".data-container");
             let temp = document.querySelector(".data-template");
-            document.querySelector("header h1").textContent=kategoriFilter;
 
              //Løb menulisten igennem og lav en klon
 
             madvarer.forEach(madvare => {
-
-                if (madvare.kategori==kategoriFilter || kategoriFilter=="alle"){
-
                 // Lav en klon af template
                 let klon = temp.cloneNode(true).content;
                 // Indsæt data i html
                 klon.querySelector("h2").textContent = madvare.navn;
-//                klon.querySelector(".data-id").textContent = madvare.id;
-                klon.querySelector(".data-pris").textContent = madvare.pris + ",-";
+                klon.querySelector(".data-id").textContent = madvare.id;
+                klon.querySelector(".data-pris").textContent = madvare.pris;
                 klon.querySelector(".data-kortbeskrivelse").textContent = madvare.kortbeskrivelse;
-//                klon.querySelector(".data-langbeskrivelse").textContent = madvare.langbeskrivelse;
+                klon.querySelector(".data-langbeskrivelse").textContent = madvare.langbeskrivelse;
                 klon.querySelector(".data-kategori").textContent = madvare.kategori;
-//                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
+                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
                 klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
-
-                    klon.querySelector("img").addEventListener("click", ()=>{
-                      window.location.href="index-single.html?id=" + madvare.id;
-                   });
                 // Placer klom i html
                 modtager.appendChild(klon);
-
-                }
-            })
+                })
             }
 
 

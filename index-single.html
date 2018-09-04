@@ -1,38 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Restaurant Babushka</title>
+        <title>Bistro Babushka</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
 
-    <header>
-      <h1></h1>
-       <nav>
-           <button class="menu-item" data-kategori="alle">Alle madvarer</button>
-           <button class="menu-item" data-kategori="forretter">Forretter</button>
-           <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
-           <button class="menu-item" data-kategori="desserter">Dessert</button>
-           <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
-
-       </nav>
-
-   </header>
-
-
-       <style>
+        <style>
            .data-kategori {
                font-family: cursive;
            }
 
-           h2{
-               color: black;
+           header {
+            background-color: tomato;
+            padding: 10px;
+        }
+        h1 {
+               margin: 0;
            }
 
-        body{
-            background-color:rgb(240,240,240);
+        h2 {
+            color: black;
         }
+
+        body {
+            background-color: rgb(240, 240, 240);
+            margin: 0;
+        }
+
         article{
             padding: 1em;
             background-color:white;
@@ -54,6 +48,23 @@
         }
     </style>
 
+    </head>
+    <body>
+
+    <header>
+      <h1></h1>
+       <nav>
+           <button class="menu-item" data-kategori="alle">Alle madvarer</button>
+           <button class="menu-item" data-kategori="forretter">Forretter</button>
+           <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
+           <button class="menu-item" data-kategori="desserter">Dessert</button>
+           <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
+
+       </nav>
+
+   </header>
+
+
        <main class="container">
         <section class="data-container">
             <article class="madvare">
@@ -61,11 +72,13 @@
             <img src="" alt=""><br>
             <span class="data-id"></span><br>
             <span class="data-kategori"></span><br>
-            <strong>Pris:</strong> <span class="data-pris"></span><br>
             <span class="data-kortbeskrivelse"></span><br>
             <strong>Lang beskrivelse: </strong><span class="data-langbeskrivelse"></span><br>
+            <br>
 <!--           <span class="data-navn"></span><br>-->
             <strong>Oprindelsesregion: </strong><span class="data-oprindelsesregion"></span><br>
+            <br>
+            <strong>Pris:</strong> <span class="data-pris"></span><br>
 <!--            Status: <span class="data-billede"></span><br>-->
 
 

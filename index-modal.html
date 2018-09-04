@@ -1,30 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Restaurant Babushka</title>
+    <title>Bistro Babushka</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-
-<body>
-
-    <header>
-        <h1></h1>
-        <nav>
-            <button class="menu-item" data-kategori="alle">Alle madvarer</button>
-            <button class="menu-item" data-kategori="forretter">Forretter</button>
-            <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
-            <button class="menu-item" data-kategori="desserter">Dessert</button>
-            <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
-
-        </nav>
-
-    </header>
 
     <style>
         .data-kategori {
             font-family: cursive;
         }
+
+        header {
+            background-color: tomato;
+            padding: 10px;
+        }
+        h1 {
+               margin: 0;
+           }
 
         h2 {
             color: black;
@@ -32,6 +24,7 @@
 
         body {
             background-color: rgb(240, 240, 240);
+            margin: 0;
         }
 
         article {
@@ -84,6 +77,11 @@
             margin: auto;
         }
 
+        #modal-tekst {
+            text-align: left;
+            margin: 1em;
+        }
+
         #modal.vis {
             /*display: block;*/
             opacity: 1;
@@ -91,14 +89,36 @@
             transition: 0.5s;
         }
     </style>
+
+</head>
+
+<body>
+
+    <header>
+        <h1></h1>
+        <nav>
+            <button class="menu-item" data-kategori="alle">Alle madvarer</button>
+            <button class="menu-item" data-kategori="forretter">Forretter</button>
+            <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
+            <button class="menu-item" data-kategori="desserter">Dessert</button>
+            <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
+
+        </nav>
+
+    </header>
+
+
     <section id="modal">
 
         <button>Luk</button>
         <div id="modal-content">
             <h2 class="modal-navn"></h2>
             <img class="modal-billede" src="" alt=""><br>
+            <div id="modal-tekst">
             <strong>Lang beskrivelse: </strong><span class="modal-langbeskrivelse"></span><br>
-            <strong>Oprindelsesregion:</strong><span class="modal-oprindelsesregion"></span><br>
+            <br>
+            <strong>Oprindelsesregion: </strong><span class="modal-oprindelsesregion"></span><br>
+            </div>
         </div>
     </section>
 
