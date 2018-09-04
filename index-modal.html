@@ -1,73 +1,67 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Restaurant Babushka</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+    <title>Restaurant Babushka</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
 
     <header>
-      <h1></h1>
-       <nav>
-           <button class="menu-item" data-kategori="alle">Alle madvarer</button>
-           <button class="menu-item" data-kategori="forretter">Forretter</button>
-           <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
-           <button class="menu-item" data-kategori="desserter">Dessert</button>
-           <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
+        <h1></h1>
+        <nav>
+            <button class="menu-item" data-kategori="alle">Alle madvarer</button>
+            <button class="menu-item" data-kategori="forretter">Forretter</button>
+            <button class="menu-item" data-kategori="hovedretter">Hovedretter</button>
+            <button class="menu-item" data-kategori="desserter">Dessert</button>
+            <button class="menu-item" data-kategori="drikkevarer">Drikkevarer</button>
 
-       </nav>
+        </nav>
 
-   </header>
+    </header>
 
-   <section id="modal">
-
-<button>Luk</button>
- <div id="modal-content">
-  <h2 class="modal-navn"></h2>
-  <img class="modal-billede" src="" alt="">
-  </div>
-   </section>
-
-
-       <style>
-           .data-kategori {
-               font-family: cursive;
-           }
-
-           h2{
-               color: black;
-           }
-
-        body{
-            background-color:rgb(240,240,240);
+    <style>
+        .data-kategori {
+            font-family: cursive;
         }
-        article{
+
+        h2 {
+            color: black;
+        }
+
+        body {
+            background-color: rgb(240, 240, 240);
+        }
+
+        article {
             padding: 1em;
-            background-color:white;
-        }
-        .data-container article img{
-            width:100%;
-        }
-        .data-container{
-            margin: 0 auto;
-            display:grid;
+            background-color: white;
         }
 
-           #modal img{
+        .data-container article img {
+            width: 100%;
+        }
+
+        .data-container {
+            margin: 0 auto;
+            display: grid;
+        }
+
+        #modal img {
             max-width: 250px;
         }
 
-       @media screen and (min-width:580px){
-            .data-container{
-                padding-left:10%;
-                padding-right:10%;
+        @media screen and (min-width:580px) {
+            .data-container {
+                padding-left: 10%;
+                padding-right: 10%;
                 grid-gap: 5px;
                 grid-template-columns: repeat(3, 1fr);
             }
-           #modal img{
-            max-width: 400px;
-        }
+            #modal img {
+                max-width: 400px;
+            }
         }
 
         #modal {
@@ -88,7 +82,7 @@
             height: 70vh;
             background-color: rgba(250, 250, 250, 1);
             margin: auto;
-            }
+        }
 
         #modal.vis {
             /*display: block;*/
@@ -97,12 +91,22 @@
             transition: 0.5s;
         }
     </style>
+    <section id="modal">
 
-       <main class="container">
+        <button>Luk</button>
+        <div id="modal-content">
+            <h2 class="modal-navn"></h2>
+            <img class="modal-billede" src="" alt=""><br>
+            <strong>Lang beskrivelse: </strong><span class="modal-langbeskrivelse"></span><br>
+            <strong>Oprindelsesregion:</strong><span class="modal-oprindelsesregion"></span><br>
+        </div>
+    </section>
+
+    <main class="container">
         <section class="data-container"></section>
-        </main>
+    </main>
 
-        <template class="data-template">
+    <template class="data-template">
         <article class="madvare">
             <h2></h2>
             <img src="" alt=""><br>
@@ -119,13 +123,13 @@
         </template>
 
     <script>
-
-        let dest = document.querySelector(".data-container"), madvarer,
-           kategoriFilter="alle"; //** filter-variabel
+        let dest = document.querySelector(".data-container"),
+            madvarer,
+            kategoriFilter = "alle"; //** filter-variabel
 
         document.addEventListener("DOMContentLoaded", hentJSON);
 
-        async function hentJSON(){
+        async function hentJSON() {
             let myJson = await fetch("json/menu.json");
             madvarer = await myJson.json();
 
@@ -136,66 +140,66 @@
 
         //** eventlisteners på alle knapper
 
-        document.querySelectorAll(".menu-item").forEach(knap =>{
-           knap.addEventListener("click", filtrering)
-       });
-       function filtrering(){
-           dest.textContent= "";
-           kategoriFilter=this.getAttribute("data-kategori");
-           visMadvarer();
-       }
+        document.querySelectorAll(".menu-item").forEach(knap => {
+            knap.addEventListener("click", filtrering)
+        });
 
-        function visMadvarer(){
-             let modtager = document.querySelector(".data-container");
+        function filtrering() {
+            dest.textContent = "";
+            kategoriFilter = this.getAttribute("data-kategori");
+            visMadvarer();
+        }
+
+        function visMadvarer() {
+            let modtager = document.querySelector(".data-container");
             let temp = document.querySelector(".data-template");
-            document.querySelector("header h1").textContent=kategoriFilter;
+            document.querySelector("header h1").textContent = kategoriFilter;
 
-             //Løb menulisten igennem og lav en klon
+            //Løb menulisten igennem og lav en klon
 
             madvarer.forEach(madvare => {
 
-                if (madvare.kategori==kategoriFilter || kategoriFilter=="alle"){
+                if (madvare.kategori == kategoriFilter || kategoriFilter == "alle") {
 
-                // Lav en klon af template
-                let klon = temp.cloneNode(true).content;
-                // Indsæt data i html
-                klon.querySelector("h2").textContent = madvare.navn;
-//                klon.querySelector(".data-id").textContent = madvare.id;
-                klon.querySelector(".data-pris").textContent = madvare.pris + ",-";
-                klon.querySelector(".data-kortbeskrivelse").textContent = madvare.kortbeskrivelse;
-//                klon.querySelector(".data-langbeskrivelse").textContent = madvare.langbeskrivelse;
-                klon.querySelector(".data-kategori").textContent = madvare.kategori;
-//                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
-                klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
-                klon.querySelector("img").addEventListener("click", ()=>{
-                   visModal(madvare);
-                });
-                // Placer klom i html
-                modtager.appendChild(klon);
+                    // Lav en klon af template
+                    let klon = temp.cloneNode(true).content;
+                    // Indsæt data i html
+                    klon.querySelector("h2").textContent = madvare.navn;
+                    //                klon.querySelector(".data-id").textContent = madvare.id;
+                    klon.querySelector(".data-pris").textContent = madvare.pris + ",-";
+                    klon.querySelector(".data-kortbeskrivelse").textContent = madvare.kortbeskrivelse;
+                    //                klon.querySelector(".data-langbeskrivelse").textContent = madvare.langbeskrivelse;
+                    klon.querySelector(".data-kategori").textContent = madvare.kategori;
+                    //                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
+                    klon.querySelector("img").src = "/imgs/small/" + madvare.billede + "-sm.jpg";
+                    klon.querySelector("img").addEventListener("click", () => {
+                        visModal(madvare);
+                    });
+                    // Placer klom i html
+                    modtager.appendChild(klon);
 
                 }
             })
-            }
+        }
 
-function visModal(madvaren){
-           let modal = document.querySelector("#modal");
-           modal.classList.add("vis");
-           modal.querySelector(".modal-navn").textContent=madvaren.navn;
-           modal.querySelector(".modal-billede").src="/imgs/medium/" + madvaren.billede + "-md.jpg";
-           modal.querySelector(".modal-billede").alt="Foto af" + madvaren.navn;
-           modal.querySelector("button").addEventListener("click", skjulModal);
+        function visModal(madvaren) {
+            let modal = document.querySelector("#modal");
+            modal.classList.add("vis");
+            modal.querySelector(".modal-navn").textContent = madvaren.navn;
+            modal.querySelector(".modal-langbeskrivelse").textContent = madvaren.langbeskrivelse;
+            modal.querySelector(".modal-oprindelsesregion").textContent = madvaren.oprindelsesregion;
+            modal.querySelector(".modal-billede").src = "/imgs/medium/" + madvaren.billede + "-md.jpg";
+            modal.querySelector(".modal-billede").alt = "Foto af" + madvaren.navn;
+            modal.querySelector("button").addEventListener("click", skjulModal);
 
-       }
+        }
 
-       function skjulModal(){
+        function skjulModal() {
 
-           modal.classList.remove("vis");
-//           window.scrollTo(0); Når du skjuler billedet, ryger du op i toppen af listen
-       }
-
-
-
+            modal.classList.remove("vis");
+            //           window.scrollTo(0); Når du skjuler billedet, ryger du op i toppen af listen
+        }
     </script>
 
-    </body>
+</body>
 </html>
