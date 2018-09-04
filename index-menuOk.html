@@ -123,6 +123,10 @@
                 klon.querySelector(".data-kategori").textContent = madvare.kategori;
 //                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
                 klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
+
+                    klon.querySelector("img").addEventListener("click", ()=>{
+                      window.location.href="index-single.html?id=" + madvare.id;
+                   });
                 // Placer klom i html
                 modtager.appendChild(klon);
 
