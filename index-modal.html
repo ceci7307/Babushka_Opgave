@@ -191,7 +191,7 @@
                     //                klon.querySelector(".data-langbeskrivelse").textContent = madvare.langbeskrivelse;
                     klon.querySelector(".data-kategori").textContent = madvare.kategori;
                     //                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
-                    klon.querySelector("img").src = "/imgs/small/" + madvare.billede + "-sm.jpg";
+                    klon.querySelector("img").src = "imgs/small/" + madvare.billede + "-sm.jpg";
                     klon.querySelector("img").addEventListener("click", () => {
                         visModal(madvare);
                     });
@@ -208,7 +208,7 @@
             modal.querySelector(".modal-navn").textContent = madvaren.navn;
             modal.querySelector(".modal-langbeskrivelse").textContent = madvaren.langbeskrivelse;
             modal.querySelector(".modal-oprindelsesregion").textContent = madvaren.oprindelsesregion;
-            modal.querySelector(".modal-billede").src = "/imgs/medium/" + madvaren.billede + "-md.jpg";
+            modal.querySelector(".modal-billede").src = "imgs/medium/" + madvaren.billede + "-md.jpg";
             modal.querySelector(".modal-billede").alt = "Foto af" + madvaren.navn;
             modal.querySelector("button").addEventListener("click", skjulModal);
 
