@@ -20,6 +20,15 @@
 
    </header>
 
+   <section id="modal">
+
+<button>Luk</button>
+ <div id="modal-content">
+  <h2 class="modal-navn"></h2>
+  <img class="modal-billede" src="" alt="">
+  </div>
+   </section>
+
 
        <style>
            .data-kategori {
@@ -44,6 +53,11 @@
             margin: 0 auto;
             display:grid;
         }
+
+           #modal img{
+            max-width: 250px;
+        }
+
        @media screen and (min-width:580px){
             .data-container{
                 padding-left:10%;
@@ -51,6 +65,36 @@
                 grid-gap: 5px;
                 grid-template-columns: repeat(3, 1fr);
             }
+           #modal img{
+            max-width: 400px;
+        }
+        }
+
+        #modal {
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: rgba(0, 0, 0, .7);
+            text-align: center;
+            /*display: none;*/
+            opacity: 0;
+            pointer-events: none;
+            transition: 1s;
+        }
+
+        #modal-content {
+            width: 70vw;
+            height: 70vh;
+            background-color: rgba(250, 250, 250, 1);
+            margin: auto;
+            }
+
+        #modal.vis {
+            /*display: block;*/
+            opacity: 1;
+            pointer-events: all;
+            transition: 0.5s;
         }
     </style>
 
@@ -123,12 +167,31 @@
                 klon.querySelector(".data-kategori").textContent = madvare.kategori;
 //                klon.querySelector(".data-oprindelsesregion").textContent = madvare.oprindelsesregion;
                 klon.querySelector("img").src= "/imgs/small/" + madvare.billede + "-sm.jpg";
+                klon.querySelector("img").addEventListener("click", ()=>{
+                   visModal(madvare);
+                });
                 // Placer klom i html
                 modtager.appendChild(klon);
 
                 }
             })
             }
+
+function visModal(madvaren){
+           let modal = document.querySelector("#modal");
+           modal.classList.add("vis");
+           modal.querySelector(".modal-navn").textContent=madvaren.navn;
+           modal.querySelector(".modal-billede").src="/imgs/medium/" + madvaren.billede + "-md.jpg";
+           modal.querySelector(".modal-billede").alt="Foto af" + madvaren.navn;
+           modal.querySelector("button").addEventListener("click", skjulModal);
+
+       }
+
+       function skjulModal(){
+
+           modal.classList.remove("vis");
+//           window.scrollTo(0); Når du skjuler billedet, ryger du op i toppen af listen
+       }
 
 
 
